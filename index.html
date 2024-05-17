@@ -5,23 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Form Site</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
         .result-box {
             margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <h1>Check Names and Calculate</h1>
     <form id="nameForm">
-        <label><input type="checkbox" name="names" value="name1" data-contribution="350" checked> Name 1 (contributed $350)</label><br>
-        <label><input type="checkbox" name="names" value="name2" data-contribution="650" checked> Name 2 (contributed $650)</label><br>
-        <label><input type="checkbox" name="names" value="name3"> Name 3</label><br>
-        <label><input type="checkbox" name="names" value="name4"> Name 4</label><br>
-        <label><input type="checkbox" name="names" value="name5"> Name 5</label><br>
-        <label><input type="checkbox" name="names" value="name6"> Name 6</label><br>
-        <label><input type="checkbox" name="names" value="name7"> Name 7</label><br>
-        <label><input type="checkbox" name="names" value="name8"> Name 8</label><br>
-        <label><input type="checkbox" name="names" value="name9"> Name 9</label><br>
+        <label><input type="checkbox" name="names" value="Izhak" data-contribution="350" checked> Izhak (contributed $350)</label><br>
+        <label><input type="checkbox" name="names" value="Sergei" data-contribution="650" checked> Sergei (contributed $650)</label><br>
+        <label><input type="checkbox" name="names" value="Shaked" checked> Shaked</label><br>
+        <label><input type="checkbox" name="names" value="Yoni" checked> Yoni</label><br>
+        <label><input type="checkbox" name="names" value="Inbar" checked> Inbar</label><br>
+        <label><input type="checkbox" name="names" value="Stav" checked> Stav</label><br>
+        <label><input type="checkbox" name="names" value="Yuval" checked> Yuval</label><br>
+        <label><input type="checkbox" name="names" value="Dima"> Dima</label><br>
+        <label><input type="checkbox" name="names" value="Vadim"> Vadim</label><br>
         <button type="button" onclick="calculate()">Calculate</button>
     </form>
     <div id="result" class="result-box"></div>
@@ -31,8 +68,8 @@
             const checkboxes = document.querySelectorAll('input[name="names"]:checked');
             const totalAmount = 1000;
             const contributions = {
-                name1: 350,
-                name2: 650
+                Izhak: 350,
+                Sergei: 650
             };
             let selectedNames = Array.from(checkboxes).map(checkbox => checkbox.value);
             let totalContributions = selectedNames.reduce((sum, name) => sum + (contributions[name] || 0), 0);
@@ -42,11 +79,14 @@
             let resultText = `Each person needs to pay: $${eachShare.toFixed(2)}<br>`;
 
             remainingNames.forEach(name => {
-                if (contributions.name1 < eachShare) {
-                    resultText += `${name} needs to pay $${(eachShare - contributions.name1).toFixed(2)} to Name 1<br>`;
-                } 
-                if (contributions.name2 < eachShare) {
-                    resultText += `${name} needs to pay $${(eachShare - contributions.name2).toFixed(2)} to Name 2<br>`;
+                let paymentToIzhak = eachShare - (contributions.Izhak / selectedNames.length);
+                let paymentToSergei = eachShare - (contributions.Sergei / selectedNames.length);
+
+                if (paymentToIzhak > 0) {
+                    resultText += `${name} needs to pay $${paymentToIzhak.toFixed(2)} to Izhak<br>`;
+                }
+                if (paymentToSergei > 0) {
+                    resultText += `${name} needs to pay $${paymentToSergei.toFixed(2)} to Sergei<br>`;
                 }
             });
 
