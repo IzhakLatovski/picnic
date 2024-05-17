@@ -90,7 +90,7 @@
             if (shakedIndex !== -1) {
                 const shakedDebt = debts[shakedIndex].debt;
                 let amount = Math.min(SergeiDebt, shakedDebt);
-                resultText += `Shaked needs to pay ${amount.toFixed(2)} NIS to Sergei (no need to pay :))<br>`;
+                resultText += `Shaked needs to pay ${amount.toFixed(2)} NIS to Sergei (no need to pay, I hope :))<br>`;
                 SergeiDebt -= amount;
                 debts[shakedIndex].debt -= amount;
             }
