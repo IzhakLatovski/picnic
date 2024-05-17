@@ -48,7 +48,7 @@
     </style>
 </head>
 <body>
-    <h1>Picnic :)</h1>
+    <h1>Picnic</h1>
     <form id="nameForm">
         <label><input type="checkbox" name="names" value="Izhak" data-contribution="350" checked> Izhak (contributed 350 NIS)</label><br>
         <label><input type="checkbox" name="names" value="Sergei" data-contribution="650" checked> Sergei (contributed 650 NIS)</label><br>
@@ -66,7 +66,7 @@
     <script>
         function calculate() {
             const checkboxes = document.querySelectorAll('input[name="names"]:checked');
-            const totalAmount = 1000;
+            const totalAmount = 1170;
             const contributions = {
                 Izhak: 350,
                 Sergei: 650,
@@ -78,7 +78,7 @@
             const totalContributed = selectedNames.reduce((sum, name) => sum + (contributions[name] || 0), 0);
             const eachShare = totalAmount / selectedNames.length;
 
-            let resultText = `Each person needs to pay: ${eachShare.toFixed(2)} NIS<br>`;
+            let resultText = `Each person needs to pay: ${eachShare.toFixed(2)} NIS<br><br>`;
 
             let IzhakDebt = selectedNames.includes('Izhak') ? contributions.Izhak - eachShare : 0;
             let SergeiDebt = selectedNames.includes('Sergei') ? contributions.Sergei - eachShare : 0;
@@ -105,7 +105,7 @@
             if (shakedIndex !== -1) {
                 const shakedDebt = debts[shakedIndex].debt;
                 let amount = Math.min(SergeiDebt, shakedDebt);
-                resultText += `Shaked needs to pay ${amount.toFixed(2)} NIS to Sergei (no need to pay :))<br>`;
+                resultText += `Shaked needs to pay ${amount.toFixed(2)} NIS to Sergei (no need to pay :))<br><br>`;
                 SergeiDebt -= amount;
                 debts[shakedIndex].debt -= amount;
             }
@@ -115,13 +115,13 @@
                 if (debt.debt > 0) {
                     if (IzhakDebt > 0) {
                         let amount = Math.min(IzhakDebt, debt.debt);
-                        resultText += `${debt.name} needs to pay ${amount.toFixed(2)} NIS to Izhak<br>`;
+                        resultText += `${debt.name} needs to pay ${amount.toFixed(2)} NIS to Izhak<br><br>`;
                         IzhakDebt -= amount;
                         debt.debt -= amount;
                     }
                     if (SergeiDebt > 0) {
                         let amount = Math.min(SergeiDebt, debt.debt);
-                        resultText += `${debt.name} needs to pay ${amount.toFixed(2)} NIS to Sergei<br>`;
+                        resultText += `${debt.name} needs to pay ${amount.toFixed(2)} NIS to Sergei<br><br>`;
                         SergeiDebt -= amount;
                         debt.debt -= amount;
                     }
@@ -130,10 +130,10 @@
 
             // If Izhak or Sergei needs to pay each other
             if (IzhakDebt < 0) {
-                resultText += `Izhak needs to pay ${Math.abs(IzhakDebt).toFixed(2)} NIS to Sergei<br>`;
+                resultText += `Izhak needs to pay ${Math.abs(IzhakDebt).toFixed(2)} NIS to Sergei<br><br>`;
             }
             if (SergeiDebt < 0) {
-                resultText += `Sergei needs to pay ${Math.abs(SergeiDebt).toFixed(2)} NIS to Izhak<br>`;
+                resultText += `Sergei needs to pay ${Math.abs(SergeiDebt).toFixed(2)} NIS to Izhak<br><br>`;
             }
 
             document.getElementById('result').innerHTML = resultText;
