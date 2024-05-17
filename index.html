@@ -74,7 +74,7 @@
             const selectedNames = Array.from(checkboxes).map(checkbox => checkbox.value);
             const eachShare = totalAmount / selectedNames.length;
 
-            let resultText = `Each person needs to pay: ${eachShare.toFixed(2)} NIS<br><br>`;
+            let resultText = `Each person needs to pay: ${eachShare.toFixed(2)} NIS<br><br><br>`;
 
             let IzhakDebt = contributions.Izhak - eachShare;
             let SergeiDebt = contributions.Sergei - eachShare;
@@ -90,7 +90,7 @@
             if (shakedIndex !== -1) {
                 const shakedDebt = debts[shakedIndex].debt;
                 let amount = Math.min(SergeiDebt, shakedDebt);
-                resultText += `Shaked needs to pay ${amount.toFixed(2)} NIS to Sergei (no need to pay, I hope :))<br>`;
+                resultText += `Shaked needs to pay ${amount.toFixed(2)} NIS to Sergei (no need to pay, I hope :))<br><br>`;
                 SergeiDebt -= amount;
                 debts[shakedIndex].debt -= amount;
             }
@@ -100,13 +100,13 @@
                 if (debt.debt > 0) {
                     if (IzhakDebt > 0) {
                         let amount = Math.min(IzhakDebt, debt.debt);
-                        resultText += `${debt.name} needs to pay ${amount.toFixed(2)} NIS to Izhak<br>`;
+                        resultText += `${debt.name} needs to pay ${amount.toFixed(2)} NIS to Izhak<br><br>`;
                         IzhakDebt -= amount;
                         debt.debt -= amount;
                     }
                     if (SergeiDebt > 0) {
                         let amount = Math.min(SergeiDebt, debt.debt);
-                        resultText += `${debt.name} needs to pay ${amount.toFixed(2)} NIS to Sergei<br>`;
+                        resultText += `${debt.name} needs to pay ${amount.toFixed(2)} NIS to Sergei<br><br>`;
                         SergeiDebt -= amount;
                         debt.debt -= amount;
                     }
@@ -115,10 +115,10 @@
 
             // If Izhak or Sergei needs to pay each other
             if (IzhakDebt < 0) {
-                resultText += `Izhak needs to pay ${Math.abs(IzhakDebt).toFixed(2)} NIS to Sergei<br>`;
+                resultText += `Izhak needs to pay ${Math.abs(IzhakDebt).toFixed(2)} NIS to Sergei<br><br>`;
             }
             if (SergeiDebt < 0) {
-                resultText += `Sergei needs to pay ${Math.abs(SergeiDebt).toFixed(2)} NIS to Izhak<br>`;
+                resultText += `Sergei needs to pay ${Math.abs(SergeiDebt).toFixed(2)} NIS to Izhak<br><br>`;
             }
 
             document.getElementById('result').innerHTML = resultText;
