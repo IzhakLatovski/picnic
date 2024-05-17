@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Form Site</title>
+    <title>Yonis picnic</title>
 </head>
 <body>
-    <h1>Check Names and Calculate</h1>
+    <h1>Yonis picnic</h1>
     <form id="nameForm">
         <label><input type="checkbox" name="names" value="name1" checked> Izhak</label><br>
         <label><input type="checkbox" name="names" value="name2" checked> Shaked</label><br>
@@ -26,7 +26,7 @@
             const checkboxes = document.querySelectorAll('input[name="names"]:checked');
             const count = checkboxes.length;
             const result = count > 0 ? 1000 / count : 0;
-            document.getElementById('result').innerText = 'Result: ' + result;
+            document.getElementById('result').innerText = 'Each one has to pay: ' + result;
         }
     </script>
 </body>
