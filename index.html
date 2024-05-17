@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form Site</title>
+</head>
+<body>
+    <h1>Check Names and Calculate</h1>
+    <form id="nameForm">
+        <label><input type="checkbox" name="names" value="name1"> Name 1</label><br>
+        <label><input type="checkbox" name="names" value="name2"> Name 2</label><br>
+        <label><input type="checkbox" name="names" value="name3"> Name 3</label><br>
+        <label><input type="checkbox" name="names" value="name4"> Name 4</label><br>
+        <label><input type="checkbox" name="names" value="name5"> Name 5</label><br>
+        <label><input type="checkbox" name="names" value="name6"> Name 6</label><br>
+        <label><input type="checkbox" name="names" value="name7"> Name 7</label><br>
+        <label><input type="checkbox" name="names" value="name8"> Name 8</label><br>
+        <label><input type="checkbox" name="names" value="name9"> Name 9</label><br>
+        <button type="button" onclick="calculate()">Calculate</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        function calculate() {
+            const checkboxes = document.querySelectorAll('input[name="names"]:checked');
+            const count = checkboxes.length;
+            const result = count > 0 ? 1000 / count : 0;
+            document.getElementById('result').innerText = 'Result: ' + result;
+        }
+    </script>
+</body>
+</html>
