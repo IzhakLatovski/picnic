@@ -3,30 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yonis picnic</title>
+    <title>Simple Form Site</title>
+    <style>
+        .result-box {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Yonis picnic</h1>
+    <h1>Check Names and Calculate</h1>
     <form id="nameForm">
-        <label><input type="checkbox" name="names" value="name1" checked> Izhak</label><br>
-        <label><input type="checkbox" name="names" value="name2" checked> Shaked</label><br>
-        <label><input type="checkbox" name="names" value="name3" checked> Sergei</label><br>
-        <label><input type="checkbox" name="names" value="name4" checked> Yoni</label><br>
-        <label><input type="checkbox" name="names" value="name5" checked> Inbar</label><br>
-        <label><input type="checkbox" name="names" value="name6" checked> Stav</label><br>
-        <label><input type="checkbox" name="names" value="name7" checked> Yuval</label><br>
-        <label><input type="checkbox" name="names" value="name8"> Dima</label><br>
-        <label><input type="checkbox" name="names" value="name9"> Vadim</label><br>
+        <label><input type="checkbox" name="names" value="name1" data-contribution="350" checked> Name 1 (contributed $350)</label><br>
+        <label><input type="checkbox" name="names" value="name2" data-contribution="650" checked> Name 2 (contributed $650)</label><br>
+        <label><input type="checkbox" name="names" value="name3"> Name 3</label><br>
+        <label><input type="checkbox" name="names" value="name4"> Name 4</label><br>
+        <label><input type="checkbox" name="names" value="name5"> Name 5</label><br>
+        <label><input type="checkbox" name="names" value="name6"> Name 6</label><br>
+        <label><input type="checkbox" name="names" value="name7"> Name 7</label><br>
+        <label><input type="checkbox" name="names" value="name8"> Name 8</label><br>
+        <label><input type="checkbox" name="names" value="name9"> Name 9</label><br>
         <button type="button" onclick="calculate()">Calculate</button>
     </form>
-    <p id="result"></p>
+    <div id="result" class="result-box"></div>
 
     <script>
         function calculate() {
             const checkboxes = document.querySelectorAll('input[name="names"]:checked');
-            const count = checkboxes.length;
-            const result = count > 0 ? 1000 / count : 0;
-            document.getElementById('result').innerText = 'Each one has to pay: ' + result;
+            const totalAmount = 1000;
+            const contributions = {
+                name1: 350,
+                name2: 650
+            };
+            let selectedNames = Array.from(checkboxes).map(checkbox => checkbox.value);
+            let totalContributions = selectedNames.reduce((sum, name) => sum + (contributions[name] || 0), 0);
+            let remainingNames = selectedNames.filter(name => !(name in contributions));
+
+            let eachShare = totalAmount / selectedNames.length;
+            let resultText = `Each person needs to pay: $${eachShare.toFixed(2)}<br>`;
+
+            remainingNames.forEach(name => {
+                if (contributions.name1 < eachShare) {
+                    resultText += `${name} needs to pay $${(eachShare - contributions.name1).toFixed(2)} to Name 1<br>`;
+                } 
+                if (contributions.name2 < eachShare) {
+                    resultText += `${name} needs to pay $${(eachShare - contributions.name2).toFixed(2)} to Name 2<br>`;
+                }
+            });
+
+            document.getElementById('result').innerHTML = resultText;
         }
     </script>
 </body>
