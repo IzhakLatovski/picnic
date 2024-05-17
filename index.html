@@ -71,22 +71,21 @@
                 Izhak: 350,
                 Sergei: 650
             };
-            let selectedNames = Array.from(checkboxes).map(checkbox => checkbox.value);
-            let totalContributions = selectedNames.reduce((sum, name) => sum + (contributions[name] || 0), 0);
-            let remainingNames = selectedNames.filter(name => !(name in contributions));
+            const selectedNames = Array.from(checkboxes).map(checkbox => checkbox.value);
+            const totalContributions = selectedNames.reduce((sum, name) => sum + (contributions[name] || 0), 0);
+            const remainingNames = selectedNames.filter(name => !(name in contributions));
 
-            let eachShare = totalAmount / selectedNames.length;
+            const eachShare = totalAmount / selectedNames.length;
             let resultText = `Each person needs to pay: $${eachShare.toFixed(2)}<br>`;
 
-            remainingNames.forEach(name => {
-                let paymentToIzhak = eachShare - (contributions.Izhak / selectedNames.length);
-                let paymentToSergei = eachShare - (contributions.Sergei / selectedNames.length);
+            const balanceIzhak = eachShare - (contributions.Izhak / selectedNames.length);
+            const balanceSergei = eachShare - (contributions.Sergei / selectedNames.length);
 
-                if (paymentToIzhak > 0) {
-                    resultText += `${name} needs to pay $${paymentToIzhak.toFixed(2)} to Izhak<br>`;
-                }
-                if (paymentToSergei > 0) {
-                    resultText += `${name} needs to pay $${paymentToSergei.toFixed(2)} to Sergei<br>`;
+            remainingNames.forEach(name => {
+                if (balanceIzhak > 0) {
+                    resultText += `${name} needs to pay $${balanceIzhak.toFixed(2)} to Izhak<br>`;
+                } else if (balanceSergei > 0) {
+                    resultText += `${name} needs to pay $${balanceSergei.toFixed(2)} to Sergei<br>`;
                 }
             });
 
