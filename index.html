@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Form Site</title>
+    <title>Picnic</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,10 +48,10 @@
     </style>
 </head>
 <body>
-    <h1>Check Names and Calculate</h1>
+    <h1>The great picnic :)</h1>
     <form id="nameForm">
-        <label><input type="checkbox" name="names" value="Izhak" data-contribution="350" checked> Izhak (contributed $350)</label><br>
-        <label><input type="checkbox" name="names" value="Sergei" data-contribution="650" checked> Sergei (contributed $650)</label><br>
+        <label><input type="checkbox" name="names" value="Izhak" data-contribution="350" checked> Izhak (contributed 350)</label><br>
+        <label><input type="checkbox" name="names" value="Sergei" data-contribution="650" checked> Sergei (contributed 650)</label><br>
         <label><input type="checkbox" name="names" value="Shaked" checked> Shaked</label><br>
         <label><input type="checkbox" name="names" value="Yoni" checked> Yoni</label><br>
         <label><input type="checkbox" name="names" value="Inbar" checked> Inbar</label><br>
@@ -78,16 +78,24 @@
             const eachShare = totalAmount / selectedNames.length;
             let resultText = `Each person needs to pay: $${eachShare.toFixed(2)}<br>`;
 
-            const balanceIzhak = eachShare - (contributions.Izhak / selectedNames.length);
-            const balanceSergei = eachShare - (contributions.Sergei / selectedNames.length);
+            let IzhakDebt = contributions.Izhak - eachShare;
+            let SergeiDebt = contributions.Sergei - eachShare;
 
             remainingNames.forEach(name => {
-                if (balanceIzhak > 0) {
-                    resultText += `${name} needs to pay $${balanceIzhak.toFixed(2)} to Izhak<br>`;
-                } else if (balanceSergei > 0) {
-                    resultText += `${name} needs to pay $${balanceSergei.toFixed(2)} to Sergei<br>`;
+                if (IzhakDebt > 0) {
+                    resultText += `${name} needs to pay $${(IzhakDebt).toFixed(2)} to Izhak<br>`;
+                } else if (SergeiDebt > 0) {
+                    resultText += `${name} needs to pay $${(SergeiDebt).toFixed(2)} to Sergei<br>`;
                 }
             });
+
+            // Calculate if Izhak or Sergei need to pay each other
+            if (IzhakDebt < 0) {
+                resultText += `Izhak needs to pay $${Math.abs(IzhakDebt).toFixed(2)} to Sergei<br>`;
+            }
+            if (SergeiDebt < 0) {
+                resultText += `Sergei needs to pay $${Math.abs(SergeiDebt).toFixed(2)} to Izhak<br>`;
+            }
 
             document.getElementById('result').innerHTML = resultText;
         }
