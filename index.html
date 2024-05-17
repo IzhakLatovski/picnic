@@ -48,7 +48,7 @@
     </style>
 </head>
 <body>
-    <h1>Check Names and Calculate</h1>
+    <h1>The great picnic</h1>
     <form id="nameForm">
         <label><input type="checkbox" name="names" value="Izhak" data-contribution="350" checked> Izhak (contributed 350 NIS)</label><br>
         <label><input type="checkbox" name="names" value="Sergei" data-contribution="650" checked> Sergei (contributed 650 NIS)</label><br>
@@ -74,7 +74,7 @@
             const selectedNames = Array.from(checkboxes).map(checkbox => checkbox.value);
             const eachShare = totalAmount / selectedNames.length;
 
-            let resultText = `Each person needs to pay: ${eachShare.toFixed(2)} NIS<br>`;
+            let resultText = `Each person needs to pay: ${eachShare.toFixed(2)} NIS<br><br>`;
 
             let IzhakDebt = contributions.Izhak - eachShare;
             let SergeiDebt = contributions.Sergei - eachShare;
